@@ -34,15 +34,16 @@ namespace Webshop.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Webshop.Api", Version = "v1"});
             });
-            
-                        services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+
+            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
 
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<ApplicationDbContext>(options =>
 //                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(10, 4, 17)))); 
-            options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            
-            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(
+                    options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddAuthentication(options =>
@@ -50,22 +51,22 @@ namespace Webshop.Api
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(jwt => {
+            }).AddJwtBearer(jwt =>
+            {
                 var key = Encoding.ASCII.GetBytes(Configuration["JwtConfig:Secret"]);
 
                 jwt.SaveToken = true;
-                jwt.TokenValidationParameters = new TokenValidationParameters {
+                jwt.TokenValidationParameters = new TokenValidationParameters
+                {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = true,
                     RequireExpirationTime = false
-
-                }; 
-
+                };
             });
-                
+
 
             services.Configure<JwtBearerOptions>(
                 IdentityServerJwtConstants.IdentityServerJwtBearerScheme,
@@ -73,11 +74,7 @@ namespace Webshop.Api
                 {
                     var onTokenValidated = options.Events.OnTokenValidated;
 
-                    options.Events.OnTokenValidated = async context =>
-                    {
-                        await onTokenValidated(context);
-
-                    };
+                    options.Events.OnTokenValidated = async context => { await onTokenValidated(context); };
                 }
             );
             // Controller services
@@ -99,7 +96,7 @@ namespace Webshop.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
