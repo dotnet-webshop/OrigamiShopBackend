@@ -13,7 +13,7 @@ namespace Webshop.Api.Models
         public string CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        public List<OrderDetails> Products { get; set; }
+        public List<OrderDetails> Products { get; set; } = new List<OrderDetails>();
 
         public double TotalPrice { get; set; }
 

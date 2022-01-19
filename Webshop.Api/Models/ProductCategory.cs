@@ -2,7 +2,6 @@
 
 namespace Webshop.Api.Models
 {
-    [Table("ProductCategories")]
     public class ProductCategory
     {       
         public Product Product { get; set; }

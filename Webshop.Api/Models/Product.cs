@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Webshop.Api.Models
 {
-    [Table("Products")]
     public class Product
     {
         [Key] public int Id { get; set; }

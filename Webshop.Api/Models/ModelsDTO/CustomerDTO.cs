@@ -4,11 +4,12 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Webshop.Api.Models.ModelsDTO;
 
 namespace Webshop.Api.Models.ModelDTO
 {
     //A transfer object for reading a customer "CustomerDTO"
-    public class CustomerDTO : ApplicationUser
+    public class CustomerDTO : UserDto
     {
         public string BillingAddress { get; set; }
         public string DefaultShippingAddress { get; set; }

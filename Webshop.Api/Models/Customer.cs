@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Webshop.Api.Models
 {
-    [Table("Customers")]
     public class Customer : ApplicationUser
     {
         public string BillingAddress { get; set; }
@@ -12,7 +11,6 @@ namespace Webshop.Api.Models
 
         public string City { get; set; }
         public string ZipCode { get; set; }
-
-        public List<Order> Orders { get; set; }
+        public List<Order> Orders { get; set; } = new List<Order>();
     }
 }

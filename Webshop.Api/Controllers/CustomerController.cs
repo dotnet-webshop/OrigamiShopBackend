@@ -32,15 +32,14 @@ namespace Webshop.Api.Controllers
         
         [HttpGet]
         [Route("")]
-        [Authorize]
+        [AllowAnonymous]
         public IActionResult GetCustomers()
         {
-            return Ok(
-                JsonSerializer.Serialize(
-                    _customerService.GetAll()
+            return
+                Ok(
+                _customerService.GetAll()
                     .Select(customer => _mapper.Map<CustomerDTO>(customer))
-                    .ToList()
-            ));
+                    .ToList());
         }
 
         
@@ -52,10 +51,8 @@ namespace Webshop.Api.Controllers
             try
             {
                 return Ok(
-                    JsonSerializer.Serialize(
                         _mapper.Map<CustomerDTO>(
                         _customerService.GetById(id))
-                    )
                 );
             }
             catch (KeyNotFoundException e)

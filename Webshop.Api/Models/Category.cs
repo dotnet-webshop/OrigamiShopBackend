@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Webshop.Api.Models
 {
-    [Table("Categories")]
     public class Category
     {
         [Key]
