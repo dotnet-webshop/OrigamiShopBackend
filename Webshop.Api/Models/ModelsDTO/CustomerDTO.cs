@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebShopApp.Models.ModelDTO
+namespace Webshop.Api.Models.ModelDTO
 {
     //A transfer object for reading a customer "CustomerDTO"
     public class CustomerDTO : ApplicationUser

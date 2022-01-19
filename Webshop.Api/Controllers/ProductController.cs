@@ -5,14 +5,14 @@ using System.Text.Json;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebShopApp.Models;
-using WebShopApp.Models.ModelDTO;
-using WebShopApp.Service;
+using Webshop.Api.Models;
+using Webshop.Api.Models.ModelDTO;
+using Webshop.Api.Service;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 
-namespace WebShopApp.Controllers
+namespace Webshop.Api.Controllers
 {
     [Route("/products")]
     [ApiController]

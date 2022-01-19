@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WebShopApp.Data;
-using WebShopApp.Models;
+using Webshop.Api.Data;
+using Webshop.Api.Models;
 
-namespace WebShopApp.Service
+namespace Webshop.Api.Service
 {
     public class OrderService : IEntityService<Order, int>
     {

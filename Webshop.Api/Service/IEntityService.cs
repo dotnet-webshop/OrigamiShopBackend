@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebShopApp.Models;
-using WebShopApp.Models.ModelDTO;
+﻿using System.Collections.Generic;
 
-namespace WebShopApp.Service
+
+namespace Webshop.Api.Service
 {
     public interface IEntityService<T1, T2> where T1 : class
     {

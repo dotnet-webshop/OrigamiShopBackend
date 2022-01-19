@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebShopApp.Models.ModelsDTO
+namespace Webshop.Api.Models.ModelsDTO
 {
     public class OrderUpdateDTO
     {        public int Id { get; set; }

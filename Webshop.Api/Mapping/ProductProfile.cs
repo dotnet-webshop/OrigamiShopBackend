@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebShopApp.Models.ModelDTO;
-using WebShopApp.Models;
+using Webshop.Api.Models.ModelDTO;
+using Webshop.Api.Models;
 
-namespace WebShopApp.Mapping
+namespace Webshop.Api.Mapping
 {
     public class ProductProfile : Profile
     {

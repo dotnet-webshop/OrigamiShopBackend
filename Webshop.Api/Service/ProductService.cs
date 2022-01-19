@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using WebShopApp.Data;
-using WebShopApp.Models;
+using Webshop.Api.Data;
+using Webshop.Api.Models;
 
-namespace WebShopApp.Service
+namespace Webshop.Api.Service
 {
 
     public class ProductService : IEntityService<Product, int>

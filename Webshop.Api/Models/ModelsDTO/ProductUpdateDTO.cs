@@ -1,5 +1,5 @@
 ﻿
-namespace WebShopApp.Models.ModelDTO
+namespace Webshop.Api.Models.ModelDTO
 {
     public class ProductUpdateDTO
     {

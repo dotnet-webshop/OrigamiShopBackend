@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using WebShopApp.Models;
+using Webshop.Api.Models;
 
-namespace WebShopApp.Data
+namespace Webshop.Api.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser> //identityDbContext
     {

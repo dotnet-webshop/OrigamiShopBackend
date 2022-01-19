@@ -6,10 +6,10 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using WebShopApp.Data;
-using WebShopApp.Models;
+using Webshop.Api.Data;
+using Webshop.Api.Models;
 
-namespace WebShopApp.Controllers
+namespace Webshop.Api.Controllers
 {
     [Route("/role/")]
     [ApiController]

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebShopApp.Models.ModelsDTO
+namespace Webshop.Api.Models.ModelsDTO
 {
     //A transfer object for reading a order "OrderDTO"
     public class OrderDTO

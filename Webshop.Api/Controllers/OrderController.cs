@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WebShopApp.Models;
-using WebShopApp.Models.ModelsDTO;
-using WebShopApp.Service;
+using Webshop.Api.Models;
+using Webshop.Api.Models.ModelsDTO;
+using Webshop.Api.Service;
 
-namespace WebShopApp.Controllers
+namespace Webshop.Api.Controllers
 {
     [Route("/orders/")]
     [ApiController]

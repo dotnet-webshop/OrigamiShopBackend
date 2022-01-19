@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebShopApp.Models.JwtModels
+namespace Webshop.Api.Models.JwtModels
 {
     public class UserRegistrationDTO
     {

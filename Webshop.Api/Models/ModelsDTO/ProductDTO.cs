@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WebShopApp.Models.ModelDTO
+namespace Webshop.Api.Models.ModelDTO
 {
     //A transfer object for reading a product "ProductDTO"
     public class ProductDTO

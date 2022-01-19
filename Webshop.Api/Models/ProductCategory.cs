@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebShopApp.Models
+namespace Webshop.Api.Models
 {
     [Table("ProductCategories")]
     public class ProductCategory

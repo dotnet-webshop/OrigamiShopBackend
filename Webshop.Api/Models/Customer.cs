@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebShopApp.Models
+namespace Webshop.Api.Models
 {
     [Table("Customers")]
     public class Customer : ApplicationUser

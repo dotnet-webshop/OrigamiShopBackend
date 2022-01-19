@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebShopApp.Models.ModelsDTO
+namespace Webshop.Api.Models.ModelsDTO
 {
     public class CustomerUpdateDTO : ApplicationUser
     {

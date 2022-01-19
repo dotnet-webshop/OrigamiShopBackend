@@ -3,11 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebShopApp.Models.ModelDTO;
-using WebShopApp.Models;
-using WebShopApp.Models.ModelsDTO;
+using Webshop.Api.Models.ModelDTO;
+using Webshop.Api.Models;
+using Webshop.Api.Models.ModelsDTO;
 
-namespace WebShopApp.Mapping
+namespace Webshop.Api.Mapping
 {
     public class CustomerProfile : Profile
     {

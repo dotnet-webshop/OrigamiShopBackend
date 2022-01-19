@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using WebShopApp.Configurations;
-using WebShopApp.Models;
-using WebShopApp.Models.JwtModels;
+using Webshop.Api.Configurations;
+using Webshop.Api.Models;
+using Webshop.Api.Models.JwtModels;
 
-namespace WebShopApp.Controllers
+namespace Webshop.Api.Controllers
 {
     [Route("/auth/")]
     [ApiController]

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace WebShopApp.Models
+namespace Webshop.Api.Models
 {
-    [Table("Orders")]
     public class Order
     {
         [Key] 
