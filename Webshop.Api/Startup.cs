@@ -77,6 +77,8 @@ namespace Webshop.Api
                     options.Events.OnTokenValidated = async context => { await onTokenValidated(context); };
                 }
             );
+            
+            services.AddCors();
             // Controller services
             services.AddScoped<IEntityService<Product, int>, ProductService>();
             services.AddScoped<IEntityService<Customer, string>, CustomerService>();
@@ -94,11 +96,14 @@ namespace Webshop.Api
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }

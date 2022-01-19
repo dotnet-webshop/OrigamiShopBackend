@@ -1,4 +1,6 @@
 using System;
+using IdentityServer4.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +9,7 @@ using Webshop.Api.Models;
 
 namespace Webshop.Api.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> //identityDbContext
+    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser> //identityDbContext
     {
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
@@ -17,9 +19,11 @@ namespace Webshop.Api.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductOptions> ProductOptions { get; set; }
         public DbSet<Option> Options { get; set; }
-        
 
-        public ApplicationDbContext(DbContextOptions options): base(options)
+
+        public ApplicationDbContext(
+            DbContextOptions options,
+            IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
 
@@ -32,7 +36,7 @@ namespace Webshop.Api.Data
                 .HasMany<Order>().WithOne(c => c.Customer)
                 .HasForeignKey(o => o.CustomerId);
 
-            
+
             // Setup OrderDetails association table:
             modelBuilder.Entity<OrderDetails>().HasKey(od => new {od.OrderId, od.ProductId});
             modelBuilder.Entity<OrderDetails>()
@@ -55,7 +59,7 @@ namespace Webshop.Api.Data
                 .HasOne(po => po.Product)
                 .WithMany(product => product.Options)
                 .HasForeignKey(po => po.ProductId);
-                
+
             // Setup ProductCategories association table:
             modelBuilder.Entity<ProductCategory>().HasKey(pc => new {pc.CategoryId, pc.ProductId});
             modelBuilder.Entity<ProductCategory>()
@@ -66,8 +70,8 @@ namespace Webshop.Api.Data
                 .HasOne(pc => pc.Product)
                 .WithMany(product => product.ProductCategories)
                 .HasForeignKey(pc => pc.ProductId);
-            
-            
+
+
             SeedData(modelBuilder);
         }
 
@@ -165,7 +169,7 @@ namespace Webshop.Api.Data
                 City = "Göteborg",
                 ZipCode = "412105"
             });
-            
+
             // Set user admin role to admin
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
@@ -177,7 +181,7 @@ namespace Webshop.Api.Data
                 RoleId = userRoleId,
                 UserId = userId
             });
-            
+
             //Create an order:
             modelBuilder.Entity<Order>().HasData(new Order
             {
