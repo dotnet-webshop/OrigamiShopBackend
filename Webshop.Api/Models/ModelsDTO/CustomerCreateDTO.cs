@@ -1,15 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Webshop.Api.Models.ModelsDTO
 {
     public class CustomerCreateDTO
     {
-        public string BillingAddress { get; set; }
-        public string DefaultShippingAddress { get; set; }
-        public string Country { get; set; }
+        public string Username { get; set; }
 
+        public string Email { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string FullName { get; set; }
+        [Required]
+        public string BillingAddress { get; set; }
+        [Required]
+        public string DefaultShippingAddress { get; set; }
+        [Required]
+        public string Country { get; set; }
+        [Required]
         public string City { get; set; }
+        [Required]
         public string ZipCode { get; set; }
         
         public CustomerCreateDTO()
