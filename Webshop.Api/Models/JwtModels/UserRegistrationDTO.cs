@@ -9,7 +9,7 @@ namespace Webshop.Api.Models.JwtModels
     public class UserRegistrationDTO
     {
         [Required]
-        public String Username { get; set; }
+        public String Email { get; set; }
         [Required]
         public String Password { get; set; }
     }

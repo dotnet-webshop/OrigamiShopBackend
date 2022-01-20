@@ -40,7 +40,7 @@ namespace Webshop.Api.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingUser = await _userManager.FindByNameAsync(userRegistrationDTO.Username);
+                var existingUser = await _userManager.FindByEmailAsync(userRegistrationDTO.Email);
 
                 if (existingUser != null)
                 {
@@ -54,9 +54,11 @@ namespace Webshop.Api.Controllers
                     });
                 }
 
-                var newUser = new ApplicationUser()
+                var newUser = new Customer()
                 {
-                    UserName = userRegistrationDTO.Username,
+                    UserName = userRegistrationDTO.Email,
+                    Email = userRegistrationDTO.Email,
+                    
                 };
 
                 var isCreated = await _userManager.CreateAsync(newUser, userRegistrationDTO.Password);
