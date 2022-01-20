@@ -18,7 +18,7 @@ namespace Webshop.Api.Models.ModelDTO
         public string City { get; set; }
         public string ZipCode { get; set; }
 
-        public List<Order> Orders { get; set; }
+        public List<OrderDTO> Orders { get; set; }
 
         public CustomerDTO()
         {
@@ -32,7 +32,6 @@ namespace Webshop.Api.Models.ModelDTO
 
             City = c.City;
             ZipCode = c.ZipCode;
-            Orders = c.Orders;
         }
     }
 }

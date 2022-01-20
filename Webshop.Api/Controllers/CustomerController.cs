@@ -33,7 +33,7 @@ namespace Webshop.Api.Controllers
         [HttpGet]
         [Route("")]
         [AllowAnonymous]
-        public IActionResult GetCustomers()
+        public ActionResult<ICollection<CustomerDTO>> GetCustomers()
         {
             return
                 Ok(
@@ -46,7 +46,8 @@ namespace Webshop.Api.Controllers
         
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetCustomer(string id)
+        [Authorize(Roles = "User,Admin")]
+        public ActionResult<CustomerDTO> GetCustomer(string id)
         {
             try
             {
@@ -65,27 +66,23 @@ namespace Webshop.Api.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("")]
-        [Authorize(Roles = "User")]
-        public IActionResult Create([FromBody] CustomerCreateDTO customerCreateDTO)
+        [Authorize(Roles = "User,Admin")]
+        public ActionResult<CustomerDTO> Create([FromBody] CustomerCreateDTO customerCreateDTO)
         {
+            if (!ModelState.IsValid) return BadRequest();
+
             var customer = _mapper.Map<Customer>(customerCreateDTO);
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _customerService.Save(customer);
-                }
-                catch (DbUpdateException e)
-                {
-                    return StatusCode(500, "Server error: " + e);
-                }
+                _customerService.Save(customer);
             }
-            return CreatedAtAction(nameof(GetCustomer),
-                new { id = customer.Id },
-                JsonSerializer.Serialize(
-                    _mapper.Map<CustomerDTO>(customer))
-                );
+            catch (DbUpdateException e)
+            {
+                return StatusCode(500, "Server error: " + e);
+            }
+
+            return Created("", _mapper.Map<CustomerDTO>(customer));
         }
 
         
@@ -110,7 +107,7 @@ namespace Webshop.Api.Controllers
         [HttpPut]
         [Route("{id}")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User,Admin")]
         public IActionResult Edit([FromBody] CustomerUpdateDTO customerUpdateDTO, string id)
         {
             if (id != customerUpdateDTO.Id)
