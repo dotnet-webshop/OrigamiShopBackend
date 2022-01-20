@@ -32,7 +32,7 @@ namespace Webshop.Api.Service
 
         public Customer Edit(Customer customer)
         {
-            if (ExistsById(customer.Id))
+            if (!ExistsById(customer.Id))
             {
                 throw new KeyNotFoundException($"Customer with {customer.Id} was not found");
             }
@@ -52,6 +52,11 @@ namespace Webshop.Api.Service
                 throw new KeyNotFoundException($"Customer with {id} was not found");
             }
 
+            customer.Orders = _context.Orders.Where(o => o.CustomerId.Equals(id))
+                .Include(o => o.Products)
+                .ThenInclude(p => p.Product)
+                .ToList();
+            
             return customer;
         }
 

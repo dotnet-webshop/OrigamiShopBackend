@@ -186,7 +186,7 @@ namespace Webshop.Api.Data
             modelBuilder.Entity<Order>().HasData(new Order
             {
                 Id = 1,
-                CustomerId = adminId,
+                CustomerId = userId,
                 TotalPrice = 250,
                 OrderEmail = "admin@admin.com",
                 OrderAddress = "Götgatan 9, 41105 Göteborg",
@@ -201,7 +201,8 @@ namespace Webshop.Api.Data
                 OrderId = 1,
                 ProductId = 1,
                 Price = 250,
-                Quantity = 1
+                Quantity = 1,
+                
             });
         }
     }

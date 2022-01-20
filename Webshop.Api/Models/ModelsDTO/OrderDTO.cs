@@ -10,7 +10,7 @@ namespace Webshop.Api.Models.ModelsDTO
     public class OrderDTO
     {
         public int Id { get; set; }
-        public string CustomerId;
+        public string CustomerId { get; set; }
         public List<OrderDetailsDto> Products { get; set; }
         public double TotalPrice { get; set; }
         public string ShippingAddress { get; set; }

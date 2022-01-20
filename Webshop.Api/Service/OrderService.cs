@@ -32,7 +32,7 @@ namespace Webshop.Api.Service
 
         public Order Edit(Order order)
         {
-            if (ExistsById(order.Id))
+            if (!ExistsById(order.Id))
             {
                 throw new KeyNotFoundException($"Order with {order.Id} was not found");
             }
