@@ -46,7 +46,7 @@ namespace Webshop.Api.Controllers
         
         [HttpGet]
         [Route("{id}")]
-        [Authorize(Roles = "User,Admin")]
+        [AllowAnonymous]
         public ActionResult<CustomerDTO> GetCustomer(string id)
         {
             try
