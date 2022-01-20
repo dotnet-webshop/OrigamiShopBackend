@@ -29,14 +29,18 @@ namespace Webshop.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(
+                configure =>
+                {
+                    configure.JsonSerializerOptions.PropertyNamingPolicy = null;
+                }
+            );
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Webshop.Api", Version = "v1"});
             });
 
             services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
-
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<ApplicationDbContext>(options =>
 //                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(10, 4, 17)))); 
@@ -94,7 +98,7 @@ namespace Webshop.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Webshop.Api v1"));
             }
-
+            
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseCors(x => x
