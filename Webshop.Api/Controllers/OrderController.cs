@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,21 +30,21 @@ namespace Webshop.Api.Controllers
         [HttpGet]
         [Route("")]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "USER")]
-        public IActionResult GetOrders()
+        public ActionResult<List<OrderDTO>> GetOrders()
         {
             return Ok(
                 JsonSerializer.Serialize(
-                _orderService.GetAll()
-                .Select(order => _mapper.Map<OrderDTO>(order))
-                .ToList()
-                    )
-                );
+                    _orderService.GetAll()
+                        .Select(order => _mapper.Map<OrderDTO>(order))
+                        .ToList()
+                )
+            );
         }
 
         [HttpGet]
         [Route("{id}")]
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public IActionResult GetOrder(int id)
+        public ActionResult<OrderDTO> GetOrder(int id)
         {
             try
             {
@@ -55,33 +57,33 @@ namespace Webshop.Api.Controllers
             }
             catch (KeyNotFoundException e)
             {
-
                 return NotFound(e.Message);
             }
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("")]
-        public IActionResult Create([FromBody] OrderCreateDTO orderCreateDTO)
+        public ActionResult<OrderDTO> Create([FromBody] OrderCreateDTO orderCreateDto)
         {
-            var order = _mapper.Map<Order>(orderCreateDTO);
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return BadRequest("Bad order");
+            Order order;
+            try
             {
-                try
-                {
-                    _orderService.Save(order);
-                }
-                catch (DbUpdateException e)
-                {
-                    return StatusCode(500, "Server error: " + e);
-                }
+                var orderDto = _mapper.Map<OrderDTO>(orderCreateDto);
+                order = _orderService.Save(_mapper.Map<Order>(orderDto));
             }
+            catch (DbUpdateException e)
+            {
+                return StatusCode(500, "Server error: " + e);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, "Server error: " + e);
+            }
+
             return CreatedAtAction(nameof(GetOrder),
-                new { id = order.Id },
-                JsonSerializer.Serialize(
-                    _mapper.Map<OrderDTO>(order))
-                );
+                new {id = order.Id}, _mapper.Map<OrderDTO>(order)
+            );
         }
 
         [HttpDelete]
@@ -96,19 +98,20 @@ namespace Webshop.Api.Controllers
             {
                 return NotFound(e.Message);
             }
-            return NoContent();
 
+            return NoContent();
         }
 
         [HttpPut]
         [Route("{id}")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([FromBody] OrderUpdateDTO orderUpdateDTO, int id)
+        public ActionResult<OrderDTO> Edit([FromBody] OrderUpdateDTO orderUpdateDTO, int id)
         {
             if (id != orderUpdateDTO.Id)
             {
                 return BadRequest($"No order with id: {id}");
             }
+
             var order = _mapper.Map<Order>(orderUpdateDTO);
 
             try
@@ -116,7 +119,7 @@ namespace Webshop.Api.Controllers
                 return Ok(
                     JsonSerializer.Serialize(
                         _orderService.Edit(order))
-                    );
+                );
             }
             catch (KeyNotFoundException e)
             {
@@ -127,6 +130,5 @@ namespace Webshop.Api.Controllers
                 return StatusCode(500, "Server error: " + e);
             }
         }
-    
     }
 }

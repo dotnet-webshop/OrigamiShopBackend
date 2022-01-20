@@ -19,20 +19,21 @@ namespace Webshop.Api.Service
         {
             var order = _context.Orders.Find(id);
 
-	    if (order != null)
-	    {
+            if (order != null)
+            {
                 _context.Orders.Remove(order);
                 _context.SaveChanges();
-	    } else
-	    {
+            }
+            else
+            {
                 throw new KeyNotFoundException($"Could not delete order with id: {id}");
             }
         }
 
         public Order Edit(Order order)
-	{
-	    if (ExistsById(order.Id))
-	    {
+        {
+            if (ExistsById(order.Id))
+            {
                 throw new KeyNotFoundException($"Order with {order.Id} was not found");
             }
 
@@ -40,37 +41,41 @@ namespace Webshop.Api.Service
             _context.SaveChanges();
 
             return order;
-	}
+        }
 
         public Order GetById(int id)
-	{
-            var order = _context.Orders.Find(id);
+        {
+            var order = _context.Orders
+                .Include(o => o.Products)
+                .ThenInclude(item => item.Product).First(o => o.Id == id);
+            
 
-	    if (order == null)
-	    {
+            if (order == null)
+            {
                 throw new KeyNotFoundException($"Order with {id} was not found");
             }
-
+            
+            
+            
             return order;
-	}
+        }
 
         public Order Save(Order order)
-	{
+        {
             _context.Add(order);
-	    _context.SaveChanges();
+            _context.SaveChanges();
 
-	    return order;
-	}
+            return order;
+        }
 
         public IEnumerable<Order> GetAll()
-	{
+        {
             return _context.Orders.Select(order => order).ToList();
-	}
+        }
 
         private bool ExistsById(int id)
         {
             return _context.Orders.Any(order => order.Id == id);
         }
-
     }
 }

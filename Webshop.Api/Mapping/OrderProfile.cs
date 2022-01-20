@@ -13,9 +13,17 @@ namespace Webshop.Api.Mapping
     {
         public OrderProfile()
         {
-            CreateMap<Order, OrderDTO>();
-            CreateMap<OrderCreateDTO, Product>();
-            CreateMap<OrderUpdateDTO, Product>();
+            
+            CreateMap<OrderDetailsDto, OrderDetails>()
+                .ReverseMap().DisableCtorValidation();
+            CreateMap<OrderDetailsCreateDto, OrderDetailsDto>().ReverseMap();
+            CreateMap<OrderDetailsCreateDto, OrderDetails>().ReverseMap();
+            CreateMap<OrderCreateDTO, Order>().ReverseMap();
+
+            CreateMap<Order, OrderDTO>().ReverseMap();
+            CreateMap<OrderCreateDTO, OrderDTO>().ReverseMap();
+            CreateMap<OrderUpdateDTO, Order>().ReverseMap();
+
         }
     }
 }

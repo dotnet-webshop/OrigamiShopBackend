@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,15 +8,13 @@ namespace Webshop.Api.Models.ModelsDTO
 {
     public class OrderCreateDTO
     {
-        public int Id { get; set; }
-
+        [Required]
         public string CustomerId { get; set; }
-        public Customer Customer { get; set; }
-
-        public List<OrderDetails> Products { get; set; }
-
+        [Required]
+        public List<OrderDetailsCreateDto> Products { get; set; }
+        [Required]
         public double TotalPrice { get; set; }
-
+        [Required]
         public string ShippingAddress { get; set; }
 
         public string OrderAddress { get; set; }
@@ -30,19 +29,6 @@ namespace Webshop.Api.Models.ModelsDTO
         {
 
         }
-
-        public OrderCreateDTO(Order o)
-        {
-            Id = o.Id;
-            CustomerId = o.CustomerId;
-            Customer = o.Customer;
-            Products = o.Products;
-            TotalPrice = o.TotalPrice;
-            ShippingAddress = o.ShippingAddress;
-            OrderAddress = o.OrderAddress;
-            OrderEmail = o.OrderEmail;
-            OrderDate = o.OrderDate;
-            OrderStatus = o.OrderStatus;
-        }
+        
     }    
 }
