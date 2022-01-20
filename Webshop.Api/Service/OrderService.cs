@@ -70,7 +70,10 @@ namespace Webshop.Api.Service
 
         public IEnumerable<Order> GetAll()
         {
-            return _context.Orders.Select(order => order).ToList();
+            return _context.Orders.Select(order => order)
+                .Include(o => o.Products)
+                .ThenInclude(items => items.Product)
+                .ToList();
         }
 
         private bool ExistsById(int id)
