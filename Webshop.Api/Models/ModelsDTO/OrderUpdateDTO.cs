@@ -10,7 +10,6 @@ namespace Webshop.Api.Models.ModelsDTO
         public int Id { get; set; }
 
         public string CustomerId { get; set; }
-        public Customer Customer { get; set; }
 
         public List<OrderDetailsCreateDto> Products { get; set; }
 
