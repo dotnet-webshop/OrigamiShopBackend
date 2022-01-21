@@ -37,10 +37,11 @@ namespace Webshop.Api.Service
                 throw new KeyNotFoundException($"Order with {order.Id} was not found");
             }
 
+            
             _context.Entry(order).State = EntityState.Modified;
             _context.SaveChanges();
-
-            return order;
+            var o = GetById(order.Id);
+            return o;
         }
 
         public Order GetById(int id)
