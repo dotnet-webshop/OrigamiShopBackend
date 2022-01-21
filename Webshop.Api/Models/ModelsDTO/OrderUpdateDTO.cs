@@ -13,8 +13,6 @@ namespace Webshop.Api.Models.ModelsDTO
 
         public List<OrderDetailsCreateDto> Products { get; set; }
 
-        public double TotalPrice { get; set; }
-
         public string ShippingAddress { get; set; }
 
         public string OrderAddress { get; set; }

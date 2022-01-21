@@ -11,8 +11,6 @@ namespace Webshop.Api.Models.ModelsDTO
         [Required]
         public List<OrderDetailsCreateDto> Products { get; set; }
         [Required]
-        public double TotalPrice { get; set; }
-        [Required]
         public string ShippingAddress { get; set; }
 
         public string OrderAddress { get; set; }
