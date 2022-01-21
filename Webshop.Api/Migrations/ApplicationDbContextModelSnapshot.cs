@@ -16,6 +16,109 @@ namespace Webshop.Api.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.13");
 
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.DeviceFlowCodes", b =>
+                {
+                    b.Property<string>("UserCode")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasMaxLength(50000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DeviceCode")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("Expiration")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SessionId")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubjectId")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserCode");
+
+                    b.HasIndex("DeviceCode")
+                        .IsUnique();
+
+                    b.HasIndex("Expiration");
+
+                    b.ToTable("DeviceCodes");
+                });
+
+            modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.PersistedGrant", b =>
+                {
+                    b.Property<string>("Key")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ConsumedTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasMaxLength(50000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("Expiration")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SessionId")
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SubjectId")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Key");
+
+                    b.HasIndex("Expiration");
+
+                    b.HasIndex("SubjectId", "ClientId", "Type");
+
+                    b.HasIndex("SubjectId", "SessionId", "Type");
+
+                    b.ToTable("PersistedGrants");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -44,15 +147,15 @@ namespace Webshop.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "054a6d0f-9165-4bc7-a18a-aa1235745c51",
-                            ConcurrencyStamp = "089c1415-bb59-4a03-a2d8-6f3e38ffca75",
+                            Id = "f244a16c-4af9-4f28-a616-e2baaece654c",
+                            ConcurrencyStamp = "bd434ccf-0ee7-42b1-a5ef-93ef7cdeb3ed",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "438079c8-8bd0-48cb-be24-f5469f37907d",
-                            ConcurrencyStamp = "6f712562-09ea-4c50-9648-a57591ec807c",
+                            Id = "b9208fb0-176e-4111-a45e-cab82d5dbac5",
+                            ConcurrencyStamp = "bdce19f5-ece2-417e-9b69-b97199b9287f",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -143,13 +246,13 @@ namespace Webshop.Api.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "5deb7da9-9ba2-4a7a-9b4d-2acccf128808",
-                            RoleId = "054a6d0f-9165-4bc7-a18a-aa1235745c51"
+                            UserId = "b66557b6-2acf-4772-b323-f5de601c90af",
+                            RoleId = "f244a16c-4af9-4f28-a616-e2baaece654c"
                         },
                         new
                         {
-                            UserId = "14e5f824-f2c5-42bd-a2c3-f1170a3d9095",
-                            RoleId = "438079c8-8bd0-48cb-be24-f5469f37907d"
+                            UserId = "a3ee37bf-343c-45e0-9890-6ef85ed2d0b7",
+                            RoleId = "b9208fb0-176e-4111-a45e-cab82d5dbac5"
                         });
                 });
 
@@ -337,9 +440,9 @@ namespace Webshop.Api.Migrations
                         new
                         {
                             Id = 1,
-                            CustomerId = "5deb7da9-9ba2-4a7a-9b4d-2acccf128808",
+                            CustomerId = "a3ee37bf-343c-45e0-9890-6ef85ed2d0b7",
                             OrderAddress = "Götgatan 9, 41105 Göteborg",
-                            OrderDate = new DateTime(2022, 1, 19, 14, 59, 23, 994, DateTimeKind.Local).AddTicks(3242),
+                            OrderDate = new DateTime(2022, 1, 21, 16, 13, 41, 360, DateTimeKind.Local).AddTicks(5775),
                             OrderEmail = "admin@admin.com",
                             OrderStatus = "Order placed",
                             ShippingAddress = "Götgatan 9, 41105 Göteborg",
@@ -490,19 +593,19 @@ namespace Webshop.Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5deb7da9-9ba2-4a7a-9b4d-2acccf128808",
+                            Id = "b66557b6-2acf-4772-b323-f5de601c90af",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a158f6c4-39cc-49c6-8995-67700dacb600",
+                            ConcurrencyStamp = "5f1e7d99-2b4e-4abb-8150-e570d27e0a09",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             FullName = "Admin Adminsson",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN77phzWJSDOIOn+JV3MM4w9koe9a2Ek3644clnyxAEQqD0yEZXE55lCEXvyl3X3+w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIsFQ7NH8cQscAEZzkMTaJEHemvVwxBWo8RkR23fyt+Fa4BBnJJoZfCLPuW6M4IdJw==",
                             PhoneNumber = "031-84468",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "91cf673d-a65f-4906-b678-96a94f9f6210",
+                            SecurityStamp = "30df9a8e-2f10-47b2-9038-7ca1408338d3",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             City = "Göteborg",
@@ -512,19 +615,19 @@ namespace Webshop.Api.Migrations
                         },
                         new
                         {
-                            Id = "14e5f824-f2c5-42bd-a2c3-f1170a3d9095",
+                            Id = "a3ee37bf-343c-45e0-9890-6ef85ed2d0b7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "73eb6fc1-d888-44fe-9c13-402e01552e46",
+                            ConcurrencyStamp = "5e4f9844-f7d4-4491-a9b7-45b9481ec6b0",
                             Email = "user@user.com",
                             EmailConfirmed = false,
                             FullName = "User Usersson",
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@USER.COM",
                             NormalizedUserName = "USER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGrPIpo5sp2Oo0bZGDassCk4AUfN/rirIkvsRGbhbQX1vM52TnoX9I9Gc69R46Otsw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMkAVHYmTre8/aGxNmhb8kC/ze5WRuLGmhNJ6B63nOKKU7ATarHBI40s31a2J3oNBQ==",
                             PhoneNumber = "031-84468",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5c1b438a-b2a2-443e-9070-ef36a73754ca",
+                            SecurityStamp = "f7848594-bf58-4bb8-81ca-6d74f4516799",
                             TwoFactorEnabled = false,
                             UserName = "User",
                             City = "Göteborg",
@@ -589,7 +692,8 @@ namespace Webshop.Api.Migrations
                 {
                     b.HasOne("Webshop.Api.Models.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Webshop.Api.Models.Customer", null)
                         .WithMany("Orders")

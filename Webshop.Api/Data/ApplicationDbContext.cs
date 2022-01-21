@@ -34,7 +34,8 @@ namespace Webshop.Api.Data
 
             modelBuilder.Entity<Customer>()
                 .HasMany<Order>().WithOne(c => c.Customer)
-                .HasForeignKey(o => o.CustomerId);
+                .HasForeignKey(o => o.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             // Setup OrderDetails association table:
