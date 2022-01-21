@@ -19,9 +19,9 @@ namespace Webshop.Api.Mapping
             CreateMap<OrderDetailsCreateDto, OrderDetailsDto>().ReverseMap();
             CreateMap<OrderDetailsCreateDto, OrderDetails>().ReverseMap();
             CreateMap<OrderCreateDTO, Order>().ReverseMap();
-
             CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<OrderCreateDTO, OrderDTO>().ReverseMap();
+            CreateMap<OrderUpdateDTO, OrderDTO>().ReverseMap();
             CreateMap<OrderUpdateDTO, Order>().ReverseMap();
 
         }

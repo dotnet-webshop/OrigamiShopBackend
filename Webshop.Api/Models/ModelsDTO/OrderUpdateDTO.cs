@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 namespace Webshop.Api.Models.ModelsDTO
 {
     public class OrderUpdateDTO
-    {        public int Id { get; set; }
+    {
+        public int Id { get; set; }
 
         public string CustomerId { get; set; }
-        public Customer Customer { get; set; }
 
-        public List<OrderDetails> Products { get; set; }
-
-        public double TotalPrice { get; set; }
+        public List<OrderDetailsCreateDto> Products { get; set; }
 
         public string ShippingAddress { get; set; }
 
@@ -27,21 +25,6 @@ namespace Webshop.Api.Models.ModelsDTO
 
         public OrderUpdateDTO()
         {
-
-        }
-
-        public OrderUpdateDTO(Order o)
-        {
-            Id = o.Id;
-            CustomerId = o.CustomerId;
-            Customer = o.Customer;
-            Products = o.Products;
-            TotalPrice = o.TotalPrice;
-            ShippingAddress = o.ShippingAddress;
-            OrderAddress = o.OrderAddress;
-            OrderEmail = o.OrderEmail;
-            OrderDate = o.OrderDate;
-            OrderStatus = o.OrderStatus;
         }
     }
 }

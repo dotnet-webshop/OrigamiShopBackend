@@ -16,7 +16,7 @@ namespace Webshop.Api.Controllers
 {
     [Route("/orders/")]
     [ApiController]
-    public class OrderController : Controller
+    public class OrderController : ControllerBase
     {
         private readonly IEntityService<Order, int> _orderService;
         private readonly IMapper _mapper;
@@ -32,13 +32,10 @@ namespace Webshop.Api.Controllers
         //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "USER")]
         public ActionResult<List<OrderDTO>> GetOrders()
         {
-            return Ok(
-                JsonSerializer.Serialize(
-                    _orderService.GetAll()
-                        .Select(order => _mapper.Map<OrderDTO>(order))
-                        .ToList()
-                )
-            );
+            return _orderService.GetAll()
+                    .Select(order => _mapper.Map<OrderDTO>(order))
+                    .ToList();
+
         }
 
         [HttpGet]
@@ -48,11 +45,9 @@ namespace Webshop.Api.Controllers
         {
             try
             {
-                return Ok(
-                    JsonSerializer.Serialize(
-                        _mapper.Map<OrderDTO>(
+                return Ok(_mapper.Map<OrderDTO>(
                             _orderService.GetById(id))
-                    )
+                    
                 );
             }
             catch (KeyNotFoundException e)
@@ -104,7 +99,6 @@ namespace Webshop.Api.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        [ValidateAntiForgeryToken]
         public ActionResult<OrderDTO> Edit([FromBody] OrderUpdateDTO orderUpdateDTO, int id)
         {
             if (id != orderUpdateDTO.Id)
@@ -112,14 +106,13 @@ namespace Webshop.Api.Controllers
                 return BadRequest($"No order with id: {id}");
             }
 
-            var order = _mapper.Map<Order>(orderUpdateDTO);
-
+            var order = _mapper.Map<Order>(
+                _mapper.Map<OrderDTO>(orderUpdateDTO)
+                );
             try
             {
-                return Ok(
-                    JsonSerializer.Serialize(
-                        _orderService.Edit(order))
-                );
+                return Ok(_mapper.Map<OrderDTO>(_orderService.Edit(order)));
+
             }
             catch (KeyNotFoundException e)
             {

@@ -30,19 +30,35 @@ namespace Webshop.Api.Service
             }
         }
 
-        public Order Edit(Order order)
+        public Order Edit(Order editedOrder)
         {
-            if (!ExistsById(order.Id))
+            if (!ExistsById(editedOrder.Id))
             {
-                throw new KeyNotFoundException($"Order with {order.Id} was not found");
+                throw new KeyNotFoundException($"Order with {editedOrder.Id} was not found");
             }
 
-            _context.Entry(order).State = EntityState.Modified;
+            editedOrder.TotalPrice = CalculateTotalPrice(editedOrder);
+            _context.Entry(editedOrder).State = EntityState.Modified;
             _context.SaveChanges();
-
-            return order;
+            var o = GetById(editedOrder.Id);
+            return o;
         }
 
+        public double CalculateTotalPrice(Order editedOrder)
+        {
+            var productIds = editedOrder.Products.Select(e => e.ProductId);
+            var products = _context.Products.Where( e => productIds.Contains(e.Id)).ToList();
+            if (!products.Any()) return 0.0;
+            var total = 0.0;
+            foreach (var item in editedOrder.Products)
+            {
+                var actualProduct = products.First( p => p.Id == item.ProductId);
+                var quantity = item.Quantity <= 0 ? 1 : item.Quantity;
+                total += actualProduct.ProductPrice * quantity;
+                products.Remove(actualProduct);
+            } 
+            return total;
+        }
         public Order GetById(int id)
         {
             var order = _context.Orders
@@ -62,6 +78,7 @@ namespace Webshop.Api.Service
 
         public Order Save(Order order)
         {
+            order.TotalPrice = CalculateTotalPrice(order);
             _context.Add(order);
             _context.SaveChanges();
 
