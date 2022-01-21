@@ -53,7 +53,7 @@ An Admin on the other hand is able to create, edit and delete products and custo
 ---
 ## Contributors
 
-- Kim Roys [GitHub Page](https://github.com/KimRoys)
+- Kim Roysdotter [GitHub Page](https://github.com/KimRoys)
 - Kristoffer [GitHub Page](https://github.com/Nekooos)
 - Michael Sjögren [GitHub Page](https://github.com/Michael-Sjogren)
 - Rabab Alsurmi [GitHub Page](https://github.com/Rababalsurmi)
@@ -61,7 +61,7 @@ An Admin on the other hand is able to create, edit and delete products and custo
 ---
 ## License & copyright
 
-* © Kim Roys, Lexicon yrkesutbildning i Väst
+* © Kim Roysdotter, Lexicon yrkesutbildning i Väst
 * © Kristoffer, Lexicon yrkesutbildning i Väst
 * © Michael Sjögren, Lexicon yrkesutbildning i Väst
 * © Rabab Alsurmi, Lexicon yrkesutbildning i Väst
