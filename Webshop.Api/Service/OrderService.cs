@@ -78,6 +78,8 @@ namespace Webshop.Api.Service
 
         public Order Save(Order order)
         {
+            order.OrderStatus = "processing";
+            order.OrderDate = System.DateTime.Now;
             order.TotalPrice = CalculateTotalPrice(order);
             _context.Add(order);
             _context.SaveChanges();
