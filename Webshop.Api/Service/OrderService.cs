@@ -47,13 +47,17 @@ namespace Webshop.Api.Service
 
         public double CalculateTotalPrice(Order editedOrder)
         {
-            var productIds = editedOrder.Products.Select(e => e.ProductId);
+            var productIds = editedOrder.Products.Select(e => e.ProductId).ToList();
             var products = _context.Products.Where( e => productIds.Contains(e.Id)).ToList();
             if (!products.Any()) return 0.0;
             var total = 0.0;
             foreach (var item in editedOrder.Products)
             {
-                var actualProduct = products.First( p => p.Id == item.ProductId);
+                Product actualProduct = products.FirstOrDefault( p => p.Id == item.ProductId);
+                if (actualProduct == null ) {
+                    products.Remove(actualProduct);
+                    continue;
+                }
                 var quantity = item.Quantity <= 0 ? 1 : item.Quantity;
                 total += actualProduct.ProductPrice * quantity;
                 products.Remove(actualProduct);
