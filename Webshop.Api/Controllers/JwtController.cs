@@ -56,9 +56,12 @@ namespace Webshop.Api.Controllers
 
                 var newUser = new Customer()
                 {
+                    FullName = userRegistrationDTO.FullName,
                     UserName = userRegistrationDTO.Email,
                     Email = userRegistrationDTO.Email,
-                    
+                    BillingAddress = userRegistrationDTO.BillingAddress,
+                    ZipCode = userRegistrationDTO.ZipCode,
+                    Country = userRegistrationDTO.Country
                 };
 
                 var isCreated = await _userManager.CreateAsync(newUser, userRegistrationDTO.Password);
@@ -72,7 +75,7 @@ namespace Webshop.Api.Controllers
                     {
                         Success = true,
                         Token = jwtToken
-                    }); ;
+                    }); 
 
                 }
                 else

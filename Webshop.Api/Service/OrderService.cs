@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Webshop.Api.Data;
@@ -39,8 +38,7 @@ namespace Webshop.Api.Service
             }
 
             editedOrder.TotalPrice = CalculateTotalPrice(editedOrder);
-            _context.OrderDetails.RemoveRange(_context.OrderDetails.Where(o => o.OrderId == editedOrder.Id).ToList());
-            _context.Update<Order>(editedOrder);
+            _context.Entry(editedOrder).State = EntityState.Modified;
             _context.SaveChanges();
             var o = GetById(editedOrder.Id);
             return o;
@@ -49,16 +47,16 @@ namespace Webshop.Api.Service
         public double CalculateTotalPrice(Order editedOrder)
         {
             var productIds = editedOrder.Products.Select(e => e.ProductId);
-            var products = _context.Products.Where(e => productIds.Contains(e.Id)).ToList();
+            var products = _context.Products.Where( e => productIds.Contains(e.Id)).ToList();
             if (!products.Any()) return 0.0;
             var total = 0.0;
             foreach (var item in editedOrder.Products)
             {
-                var actualProduct = products.First(p => p.Id == item.ProductId);
+                var actualProduct = products.First( p => p.Id == item.ProductId);
                 var quantity = item.Quantity <= 0 ? 1 : item.Quantity;
                 total += actualProduct.ProductPrice * quantity;
                 products.Remove(actualProduct);
-            }
+            } 
             return total;
         }
         public Order GetById(int id)
@@ -66,21 +64,21 @@ namespace Webshop.Api.Service
             var order = _context.Orders
                 .Include(o => o.Products)
                 .ThenInclude(item => item.Product).First(o => o.Id == id);
-
+            
 
             if (order == null)
             {
                 throw new KeyNotFoundException($"Order with {id} was not found");
             }
-
-
-
+            
+            
+            
             return order;
         }
 
         public Order Save(Order order)
         {
-            order.OrderStatus = "processing";
+            order.OrderStatus = "Processing";
             order.OrderDate = System.DateTime.Now;
             order.TotalPrice = CalculateTotalPrice(order);
             _context.Add(order);
