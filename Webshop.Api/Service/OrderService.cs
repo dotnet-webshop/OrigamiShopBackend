@@ -36,12 +36,13 @@ namespace Webshop.Api.Service
             {
                 throw new KeyNotFoundException($"Order with {editedOrder.Id} was not found");
             }
-
-            editedOrder.TotalPrice = CalculateTotalPrice(editedOrder);
-            _context.Entry(editedOrder).State = EntityState.Modified;
+            _context.OrderDetails.RemoveRange( _context.OrderDetails.Where(o => o.OrderId == editedOrder.Id).AsEnumerable());
             _context.SaveChanges();
-            var o = GetById(editedOrder.Id);
-            return o;
+            editedOrder.TotalPrice = CalculateTotalPrice(editedOrder);
+            _context.Orders.Update(editedOrder);
+            _context.SaveChanges();
+
+            return editedOrder;
         }
 
         public double CalculateTotalPrice(Order editedOrder)
