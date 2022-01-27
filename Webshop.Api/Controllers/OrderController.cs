@@ -106,11 +106,12 @@ namespace Webshop.Api.Controllers
                 return BadRequest($"No order with id: {id}");
             }
 
-            var order = _mapper.Map<Order>(
-                _mapper.Map<OrderDTO>(orderUpdateDTO)
-                );
+
             try
             {
+                var order = _mapper.Map<Order>(
+                _mapper.Map<Order>(orderUpdateDTO)
+                );
                 return Ok(_mapper.Map<OrderDTO>(_orderService.Edit(order)));
 
             }
