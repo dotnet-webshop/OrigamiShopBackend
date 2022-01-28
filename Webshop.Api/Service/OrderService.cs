@@ -32,6 +32,7 @@ namespace Webshop.Api.Service
 
         public Order Edit(Order editedOrder)
         {
+            editedOrder.Products = editedOrder.Products.GroupBy(o => o.ProductId).Select(g => g.First()).Distinct().ToList();
             if (!ExistsById(editedOrder.Id))
             {
                 throw new KeyNotFoundException($"Order with {editedOrder.Id} was not found");
@@ -53,11 +54,13 @@ namespace Webshop.Api.Service
             var total = 0.0;
             foreach (var item in editedOrder.Products)
             {
-                Product actualProduct = products.FirstOrDefault( p => p.Id == item.ProductId);
+                var actualProduct = products.FirstOrDefault( p => p.Id == item.ProductId);
+                //_context.Entry(actualProduct).State = EntityState.Detached;
                 if (actualProduct == null ) {
                     products.Remove(actualProduct);
                     continue;
                 }
+
                 var quantity = item.Quantity <= 0 ? 1 : item.Quantity;
                 total += actualProduct.ProductPrice * quantity;
                 products.Remove(actualProduct);
