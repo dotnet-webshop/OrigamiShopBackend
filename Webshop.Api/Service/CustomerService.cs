@@ -37,8 +37,13 @@ namespace Webshop.Api.Service
                 throw new KeyNotFoundException($"Customer with {customer.Id} was not found");
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
-            _context.SaveChanges();
+//           _context.Entry(customer).State = EntityState.Modified;
+//           _context.Customers.Update(customer);
+
+            _context.Database.ExecuteSqlInterpolated($"UPDATE AspNetUsers SET FullName={customer.FullName}, Email={customer.Email}, PhoneNumber={customer.PhoneNumber} WHERE Id = {customer.Id}");
+            _context.Database.ExecuteSqlInterpolated($"UPDATE AspNetUsers SET DefaultShippingAddress={customer.DefaultShippingAddress}, BillingAddress={customer.BillingAddress}, City={customer.City} WHERE Id = {customer.Id}");
+            _context.Database.ExecuteSqlInterpolated($"UPDATE AspNetUsers SET ZipCode={customer.ZipCode}, Country={customer.Country} WHERE Id = {customer.Id}");
+//          _context.SaveChanges();
 
             return customer;
         }
