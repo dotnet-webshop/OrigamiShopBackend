@@ -115,6 +115,9 @@ namespace Webshop.Api.Controllers
                 return BadRequest($"No product with id: {id}");
             }
 
+            customerUpdateDTO.NormalizedEmail = customerUpdateDTO.Email.ToUpper();
+            customerUpdateDTO.NormalizedUserName = customerUpdateDTO.UserName.ToUpper();
+
             var customer = _mapper.Map<Customer>(customerUpdateDTO);
 
             try
