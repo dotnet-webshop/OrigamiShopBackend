@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Webshop.Api.Migrations
 {
-    public partial class Inital : Migration
+    public partial class CascadeDelte : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,6 +69,25 @@ namespace Webshop.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DeviceCodes",
+                columns: table => new
+                {
+                    UserCode = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    DeviceCode = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    SubjectId = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    SessionId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    ClientId = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Data = table.Column<string>(type: "TEXT", maxLength: 50000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeviceCodes", x => x.UserCode);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Options",
                 columns: table => new
                 {
@@ -79,6 +98,26 @@ namespace Webshop.Api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Options", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersistedGrants",
+                columns: table => new
+                {
+                    Key = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Type = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    SubjectId = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    SessionId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    ClientId = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ConsumedTime = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Data = table.Column<string>(type: "TEXT", maxLength: 50000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersistedGrants", x => x.Key);
                 });
 
             migrationBuilder.CreateTable(
@@ -228,7 +267,7 @@ namespace Webshop.Api.Migrations
                         column: x => x.CustomerId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_CustomerId1",
                         column: x => x.CustomerId1,
@@ -315,22 +354,22 @@ namespace Webshop.Api.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "054a6d0f-9165-4bc7-a18a-aa1235745c51", "089c1415-bb59-4a03-a2d8-6f3e38ffca75", "Admin", "ADMIN" });
+                values: new object[] { "f244a16c-4af9-4f28-a616-e2baaece654c", "bd434ccf-0ee7-42b1-a5ef-93ef7cdeb3ed", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "438079c8-8bd0-48cb-be24-f5469f37907d", "6f712562-09ea-4c50-9648-a57591ec807c", "User", "USER" });
+                values: new object[] { "b9208fb0-176e-4111-a45e-cab82d5dbac5", "bdce19f5-ece2-417e-9b69-b97199b9287f", "User", "USER" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BillingAddress", "City", "ConcurrencyStamp", "Country", "DefaultShippingAddress", "Discriminator", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "ZipCode" },
-                values: new object[] { "5deb7da9-9ba2-4a7a-9b4d-2acccf128808", 0, null, "Göteborg", "a158f6c4-39cc-49c6-8995-67700dacb600", "Sweden", "Götgatan 9", "Customer", "admin@admin.com", false, "Admin Adminsson", false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEN77phzWJSDOIOn+JV3MM4w9koe9a2Ek3644clnyxAEQqD0yEZXE55lCEXvyl3X3+w==", "031-84468", false, "91cf673d-a65f-4906-b678-96a94f9f6210", false, "Admin", "41105" });
+                values: new object[] { "b66557b6-2acf-4772-b323-f5de601c90af", 0, null, "Göteborg", "5f1e7d99-2b4e-4abb-8150-e570d27e0a09", "Sweden", "Götgatan 9", "Customer", "admin@admin.com", false, "Admin Adminsson", false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEIsFQ7NH8cQscAEZzkMTaJEHemvVwxBWo8RkR23fyt+Fa4BBnJJoZfCLPuW6M4IdJw==", "031-84468", false, "30df9a8e-2f10-47b2-9038-7ca1408338d3", false, "Admin", "41105" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "BillingAddress", "City", "ConcurrencyStamp", "Country", "DefaultShippingAddress", "Discriminator", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "ZipCode" },
-                values: new object[] { "14e5f824-f2c5-42bd-a2c3-f1170a3d9095", 0, null, "Göteborg", "73eb6fc1-d888-44fe-9c13-402e01552e46", "Sweden", "Götgatan 9", "Customer", "user@user.com", false, "User Usersson", false, null, "USER@USER.COM", "USER", "AQAAAAEAACcQAAAAEGrPIpo5sp2Oo0bZGDassCk4AUfN/rirIkvsRGbhbQX1vM52TnoX9I9Gc69R46Otsw==", "031-84468", false, "5c1b438a-b2a2-443e-9070-ef36a73754ca", false, "User", "412105" });
+                values: new object[] { "a3ee37bf-343c-45e0-9890-6ef85ed2d0b7", 0, null, "Göteborg", "5e4f9844-f7d4-4491-a9b7-45b9481ec6b0", "Sweden", "Götgatan 9", "Customer", "user@user.com", false, "User Usersson", false, null, "USER@USER.COM", "USER", "AQAAAAEAACcQAAAAEMkAVHYmTre8/aGxNmhb8kC/ze5WRuLGmhNJ6B63nOKKU7ATarHBI40s31a2J3oNBQ==", "031-84468", false, "f7848594-bf58-4bb8-81ca-6d74f4516799", false, "User", "412105" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -350,17 +389,17 @@ namespace Webshop.Api.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "054a6d0f-9165-4bc7-a18a-aa1235745c51", "5deb7da9-9ba2-4a7a-9b4d-2acccf128808" });
+                values: new object[] { "f244a16c-4af9-4f28-a616-e2baaece654c", "b66557b6-2acf-4772-b323-f5de601c90af" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "438079c8-8bd0-48cb-be24-f5469f37907d", "14e5f824-f2c5-42bd-a2c3-f1170a3d9095" });
+                values: new object[] { "b9208fb0-176e-4111-a45e-cab82d5dbac5", "a3ee37bf-343c-45e0-9890-6ef85ed2d0b7" });
 
             migrationBuilder.InsertData(
                 table: "Orders",
                 columns: new[] { "Id", "CustomerId", "CustomerId1", "OrderAddress", "OrderDate", "OrderEmail", "OrderStatus", "ShippingAddress", "TotalPrice" },
-                values: new object[] { 1, "5deb7da9-9ba2-4a7a-9b4d-2acccf128808", null, "Götgatan 9, 41105 Göteborg", new DateTime(2022, 1, 19, 14, 59, 23, 994, DateTimeKind.Local).AddTicks(3242), "admin@admin.com", "Order placed", "Götgatan 9, 41105 Göteborg", 250.0 });
+                values: new object[] { 1, "a3ee37bf-343c-45e0-9890-6ef85ed2d0b7", null, "Götgatan 9, 41105 Göteborg", new DateTime(2022, 1, 21, 16, 13, 41, 360, DateTimeKind.Local).AddTicks(5775), "admin@admin.com", "Order placed", "Götgatan 9, 41105 Göteborg", 250.0 });
 
             migrationBuilder.InsertData(
                 table: "ProductCategories",
@@ -415,6 +454,17 @@ namespace Webshop.Api.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_DeviceCodes_DeviceCode",
+                table: "DeviceCodes",
+                column: "DeviceCode",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DeviceCodes_Expiration",
+                table: "DeviceCodes",
+                column: "Expiration");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_ProductId",
                 table: "OrderDetails",
                 column: "ProductId");
@@ -428,6 +478,21 @@ namespace Webshop.Api.Migrations
                 name: "IX_Orders_CustomerId1",
                 table: "Orders",
                 column: "CustomerId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersistedGrants_Expiration",
+                table: "PersistedGrants",
+                column: "Expiration");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersistedGrants_SubjectId_ClientId_Type",
+                table: "PersistedGrants",
+                columns: new[] { "SubjectId", "ClientId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PersistedGrants_SubjectId_SessionId_Type",
+                table: "PersistedGrants",
+                columns: new[] { "SubjectId", "SessionId", "Type" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategories_ProductId",
@@ -458,7 +523,13 @@ namespace Webshop.Api.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "DeviceCodes");
+
+            migrationBuilder.DropTable(
                 name: "OrderDetails");
+
+            migrationBuilder.DropTable(
+                name: "PersistedGrants");
 
             migrationBuilder.DropTable(
                 name: "ProductCategories");

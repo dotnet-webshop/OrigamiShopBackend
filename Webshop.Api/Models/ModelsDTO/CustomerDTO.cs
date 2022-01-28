@@ -14,7 +14,6 @@ namespace Webshop.Api.Models.ModelDTO
         public string BillingAddress { get; set; }
         public string DefaultShippingAddress { get; set; }
         public string Country { get; set; }
-
         public string City { get; set; }
         public string ZipCode { get; set; }
 
