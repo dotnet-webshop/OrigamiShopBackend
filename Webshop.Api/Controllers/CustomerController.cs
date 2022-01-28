@@ -17,7 +17,7 @@ namespace Webshop.Api.Controllers
 {
     [Route("/customers/")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CustomerController : Controller
     {
         private readonly IEntityService<Customer, string> _customerService;
@@ -64,7 +64,7 @@ namespace Webshop.Api.Controllers
 
        
         [HttpPost]
-        [ValidateAntiForgeryToken]
+//        [ValidateAntiForgeryToken]
         [Route("")]
         [Authorize(Roles = "User,Admin")]
         public ActionResult<CustomerDTO> Create([FromBody] CustomerCreateDTO customerCreateDTO)
@@ -106,7 +106,7 @@ namespace Webshop.Api.Controllers
         
         [HttpPut]
         [Route("{id}")]
-        [ValidateAntiForgeryToken]
+//        [ValidateAntiForgeryToken]
         [Authorize(Roles = "User,Admin")]
         public IActionResult Edit([FromBody] CustomerUpdateDTO customerUpdateDTO, string id)
         {
