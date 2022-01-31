@@ -178,8 +178,8 @@ namespace Webshop.Api.Controllers
             var claims = new List<Claim>
             {
                 new Claim("id", user.Id),
-                new Claim(JwtRegisteredClaimNames.UniqueName ,user.UserName),
-                new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
+                new Claim(JwtRegisteredClaimNames.UniqueName ,user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.FullName),
                 // Future refresh token
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
