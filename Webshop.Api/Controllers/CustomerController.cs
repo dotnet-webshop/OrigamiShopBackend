@@ -108,7 +108,7 @@ namespace Webshop.Api.Controllers
         [Route("{id}")]
 //        [ValidateAntiForgeryToken]
         [Authorize(Roles = "User,Admin")]
-        public IActionResult Edit([FromBody] CustomerUpdateDTO customerUpdateDTO, string id)
+        public ActionResult<CustomerDTO> Edit([FromBody] CustomerUpdateDTO customerUpdateDTO, string id)
         {
             if (id != customerUpdateDTO.Id)
             {
@@ -116,15 +116,13 @@ namespace Webshop.Api.Controllers
             }
 
             customerUpdateDTO.NormalizedEmail = customerUpdateDTO.Email.ToUpper();
-            customerUpdateDTO.NormalizedUserName = customerUpdateDTO.UserName.ToUpper();
 
             var customer = _mapper.Map<Customer>(customerUpdateDTO);
 
             try
             {
                 return Ok(
-                    JsonSerializer.Serialize(
-                        _customerService.Edit(customer))
+                        _mapper.Map<CustomerDTO>(_customerService.Edit(customer))
                     );
             }
             catch (KeyNotFoundException e)
